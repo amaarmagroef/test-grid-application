@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'androidx.navigation.safeargs'
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+    buildToolsVersion Config.buildToolsVersion
+
+    defaultConfig {
+        applicationId "evermost.test"
+        minSdkVersion Config.minSdkVersion
+        targetSdkVersion Config.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField "String", "IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/movie/\""
+        buildConfigField "String", "API_KEY_MOVIE_DB", "\"248f542c18aa87820d5db93ae4b02909\""
+
+        testInstrumentationRunner Config.instrumentationRunner
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation AndroidX.appCompat
+    implementation AndroidX.coreKtx
+    implementation AndroidX.constraintLayout
+
+    implementation AndroidX.navigationFragment
+    implementation AndroidX.navigationUI
+
+    implementation Googles.material
+    implementation Media.glide
+
+    implementation Kotlin.kotlin
+    implementation Kotlin.coroutinesCore
+    implementation Kotlin.coroutinesAndroid
+
+    implementation Lifecycles.runtime
+    implementation Lifecycles.viewModel
+    implementation Lifecycles.liveData
+    implementation Lifecycles.commonJava8
+
+    implementation Network.retrofit
+    implementation Network.retrofitConverter
+    implementation Network.okhttp
+    implementation Network.okhttpLogger
+
+    implementation RxJava.rxandroid
+    implementation RxJava.rxjavaadapter
+    implementation RxJava.rxjava
+
+    implementation Injections.dagger
+    implementation Injections.daggerAndroid
+    kapt Injections.daggerProcessor
+    kapt  Injections.daggerCompiler
+
+    testImplementation Testing.jUnit
+    androidTestImplementation Testing.extjUnit
+    androidTestImplementation Testing.espressoCore
+}
